@@ -11,7 +11,6 @@ s3 = boto3.client(
 )
 Bucket_Name ="test"
 # Get object information
-
 # Upload/Update single file
 #s3.upload_fileobj(io.BytesIO(file_content), <R2_BUCKET_NAME>, <FILE_KEY_NAME>)
 localFilePath='./123456.jpg'
