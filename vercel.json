@@ -24,10 +24,6 @@
       "destination": "/index.html"
     },
     {
-      "source": "/sad-face.html",
-      "destination": "/sad-face.html"
-    },
-    {
       "source": "/(.*)",
       "destination": "/api/index"
     }
