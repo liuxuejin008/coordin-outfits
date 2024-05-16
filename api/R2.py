@@ -10,6 +10,7 @@ s3 = boto3.client(
     region_name="apac", # Must be one of: wnam, enam, weur, eeur, apac, auto
 )
 Bucket_Name ="test"
+print('==========================')
 # Get object information
 # Upload/Update single file
 #s3.upload_fileobj(io.BytesIO(file_content), <R2_BUCKET_NAME>, <FILE_KEY_NAME>)
