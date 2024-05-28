@@ -18,7 +18,7 @@ print('==========================')
 #s3.upload_fileobj(io.BytesIO(file_content), <R2_BUCKET_NAME>, <FILE_KEY_NAME>)
 localFilePath='./123456.jpg'
 try:
-    s3.upload_file(localFilePath, Bucket_Name, '12345600000.jpg')
+    s3.upload_file(localFilePath, Bucket_Name, '123456000000.jpg')
     print()
 except botocore.exceptions.ClientError as e:
     print(e)

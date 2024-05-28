@@ -14,20 +14,21 @@ image_path = "./123456.jpg"
 
 # Getting the base64 string
 base64_image = encode_image(image_path)
+print(len(base64_image))
 headers = {
   "Content-Type": "application/json",
   "Authorization": f"Bearer {api_key}"
 }
 
 payload = {
-  "model": "gpt-4-turbo",
+  "model": "openai/gpt-4o",
   "messages": [
     {
       "role": "user",
       "content": [
         {
           "type": "text",
-          "text": "Based on the picture, can you give some fashion advice?"
+          "text": "描述图片的内容"
         },
         {
           "type": "image_url",
@@ -41,7 +42,6 @@ payload = {
   "max_tokens": 300
 }
 response = requests.post("https://openrouter.ai/api/v1/chat/completions", headers=headers, json=payload)
-print(response.json())
 json_data = response.json()
 content = json_data['choices'][0]['message']['content']
 print(content)
