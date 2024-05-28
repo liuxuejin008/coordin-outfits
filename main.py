@@ -9,5 +9,10 @@ def index():
     return jsonify({"Choo Choo": "Welcome to your Flask app 🚅"})
 
 
+@app.route('/aa')
+def index():
+    return jsonify({"Chaa Chqq": "Welcome to your Flask app 🚅"})
+
+
 if __name__ == '__main__':
     app.run(debug=False, port=os.getenv("PORT", default=5000))
