@@ -6,7 +6,6 @@ sqlalchemy==2.0.28
 openai==1.25.0
 boto3==1.34.101
 gunicorn==20.0.4
-itsdangerous==1.1.0
-Jinja2
+itsdangerous
 MarkupSafe
 Werkzeug
