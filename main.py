@@ -1,7 +1,9 @@
 from flask import Flask, jsonify
 import os
 
-app = Flask(__name__)
+
+from api import app
+
 
 
 @app.route('/')
@@ -10,9 +12,11 @@ def index():
 
 
 @app.route('/aa')
-def index():
+def aa():
     return jsonify({"Chaa Chqq": "Welcome to your Flask app 🚅"})
 
 
+
+
 if __name__ == '__main__':
-    app.run(debug=False, port=os.getenv("PORT", default=5000))
+    app.run(debug=True, host="192.168.14.122",port=os.getenv("PORT", default=5000))

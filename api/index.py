@@ -1,46 +1,38 @@
+import base64
+import json
+import os
 import traceback
+import uuid
 from os.path import dirname, abspath, join
+
+import openai
+from openai import OpenAI
 from sqlalchemy import create_engine, Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+from starlette.responses import StreamingResponse
+from werkzeug.utils import secure_filename
 
 dir = dirname(abspath(__file__))
-import requests
-from flask import Flask, jsonify, request, render_template
 
-app = Flask(__name__)
+upload_folder = './images'
+import requests
+from flask import Flask, jsonify, request, render_template, Response
+
+from api import app
+client = OpenAI(base_url="https://openrouter.ai/api/v1",
+                api_key="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")
+
 app.config['JSON_AS_ASCII'] = False
 
 
-@app.route('/')
+@app.route('/home')
 def home():
     return 'Hello, World!'
 
 
 @app.route('/about')
 def about():
-    ll = join(dir, '..', 'data', 'example.db')
-    # 创建 SQLite 数据库连接
-    print('sqlite:///' + ll)
-    engine = create_engine('sqlite:///' + ll, echo=True)
-
-    # 创建基类
-    Base = declarative_base()
-
-    # 定义数据模型
-    class User(Base):
-        __tablename__ = 'users'
-        id = Column(Integer, primary_key=True)
-        name = Column(String)
-        age = Column(Integer)
-
-    # 创建会话
-    Session = sessionmaker(bind=engine)
-    session = Session()
-    # 查询数据
-    users = session.query(User).all()
-    for user in users:
-        print(user.name, user.age)
     return 'About'
 
 
@@ -83,10 +75,126 @@ def list():
     return jsonify({"message": message, "rcode": 0})
 
 
-@app.route('/result.html')
+@app.route('/main.html')
 def result():
     dict = {'phy': 50, 'che': 60, 'maths': 70}
-    return render_template('result.html', result=dict)
+    return render_template('main.html', result=dict)
 
 
+@app.route('/stream1')
+def stream1():
+    def event_stream():
+        while True:
+            yield 'data: %s\n\n' % 'Hello, World!'
+
+    return Response(event_stream(), mimetype="text/event-stream")
+
+
+
+
+@app.route('/sse.html', methods=['GET'])
+def sse():
+    return render_template('sse.html', result=dict)
+
+
+def encode_image(image_path):
+    with open(image_path, "rb") as image_file:
+        return base64.b64encode(image_file.read()).decode("utf-8")
+
+
+
+@app.route('/stream', methods=['GET'])
+def stream():
+
+    question = request.args.get("question")
+    file_name = request.args.get("fileName")
+    print(f"question={question}")
+    print(f"file_name={file_name}")
+    def event_stream():
+        file_path = os.path.join(upload_folder, file_name)
+        base64_image = encode_image(file_path)
+        print(len(base64_image))
+        res = client.chat.completions.create(
+            model="openai/gpt-4o",
+            messages=[
+                {"role": "system", "content": "You are a helpful outfits assistant"},
+                {"role": "user", "content": [
+                    {"type": "text", "text": question},
+                    {"type": "image_url", "image_url": {
+                        "url": f"data:image/jpg;base64,{base64_image}"}
+                     }
+                ]}
+            ],
+            temperature=0.8,
+            # max_tokens=1000,
+            stream=True
+        )
+
+        aaa = ""
+        for trunk in res:
+            if trunk.choices[0].finish_reason is not None:
+                print('111111111111111')
+                data = '[DONE]'
+            else:
+                print('22222222222222')
+                data = trunk.choices[0].delta.content
+                print(data)
+            aaa = aaa + data
+            yield "data: %s\n\n" % data.replace("\n", "<br>")
+        print(aaa)
+    response1 = Response(event_stream())
+    response1.headers['Content-Type'] = 'text/event-stream'
+    return response1
+
+
+def generate_sse():
+    data = "Hello, SSE!"
+    event = "message"
+
+    yield "data: {}\n".format(data)
+    yield "event: {}\n\n".format(event)
+
+
+@app.route('/sse')
+def sse111():
+    response = Response(generate_sse())
+    response.headers['Content-Type'] = 'text/event-stream'
+    return response
+
+
+def get_file_type(filename):
+    """
+    根据文件名获取文件类型（通过扩展名）
+
+    :param filename: 文件名，包含扩展名
+    :return: 文件类型（基于扩展名），如果未知则返回'unknown'
+    """
+    # 使用os.path.splitext分离文件名和扩展名
+    extension = os.path.splitext(filename)[1]
+
+    # 创建一个简单的映射，根据扩展名映射到文件类型
+    file_types = {
+        '.jpg': '.jpg',
+        '.jpeg': '.jpeg',
+        '.png': '.png',
+        # 添加更多类型...
+    }
+
+    # 检查扩展名是否在字典中，如果在，则返回对应的文件类型，否则返回'unknown'
+    return file_types.get(extension.lower(), 'unknown')
+
+
+@app.route('/upload', methods=['POST'])
+def upload():
+    if request.method == 'POST':
+        f = request.files['file']
+        uuid_filename = str(uuid.uuid4())
+        uuid_filename_no_dashes = uuid_filename.replace("-", "")
+        file_name = uuid_filename_no_dashes+get_file_type(f.filename)
+        print(f"file_name={file_name}")
+        file_path = os.path.join(upload_folder, file_name)
+        print(f"file_path={file_path}")
+        f.save(file_path)
+        return jsonify({"message": {"file_name":file_name}, "rcode": 0})
+    return jsonify({"message": "Get is not allowed", "rcode": 1})
 
