@@ -4,6 +4,8 @@ import os
 import traceback
 import uuid
 from os.path import dirname, abspath, join
+from flask import Blueprint, render_template
+index_bp = Blueprint('index', __name__)
 
 import openai
 from openai import OpenAI
@@ -13,30 +15,30 @@ from sqlalchemy.orm import sessionmaker
 from starlette.responses import StreamingResponse
 from werkzeug.utils import secure_filename
 
+
 dir = dirname(abspath(__file__))
 
 upload_folder = './images'
 import requests
-from flask import Flask, jsonify, request, render_template, Response
+from flask import  jsonify, request, render_template, Response
 
-from api import app
+
 client = OpenAI(base_url="https://openrouter.ai/api/v1",
                 api_key="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")
 
-app.config['JSON_AS_ASCII'] = False
 
 
-@app.route('/home')
+@index_bp.route('/home')
 def home():
     return 'Hello, World!'
 
 
-@app.route('/about')
+@index_bp.route('/about')
 def about():
     return 'About'
 
 
-@app.route('/list', methods=['GET', 'POST'])
+@index_bp.route('/list', methods=['GET', 'POST'])
 def list():
     try:
         word = request.args.get("word")
@@ -75,13 +77,13 @@ def list():
     return jsonify({"message": message, "rcode": 0})
 
 
-@app.route('/main.html')
+@index_bp.route('/main.html')
 def result():
     dict = {'phy': 50, 'che': 60, 'maths': 70}
     return render_template('main.html', result=dict)
 
 
-@app.route('/stream1')
+@index_bp.route('/stream1')
 def stream1():
     def event_stream():
         while True:
@@ -92,7 +94,7 @@ def stream1():
 
 
 
-@app.route('/sse.html', methods=['GET'])
+@index_bp.route('/sse.html', methods=['GET'])
 def sse():
     return render_template('sse.html', result=dict)
 
@@ -103,7 +105,7 @@ def encode_image(image_path):
 
 
 
-@app.route('/stream', methods=['GET'])
+@index_bp.route('/stream', methods=['GET'])
 def stream():
 
     question = request.args.get("question")
@@ -155,7 +157,7 @@ def generate_sse():
     yield "event: {}\n\n".format(event)
 
 
-@app.route('/sse')
+@index_bp.route('/sse')
 def sse111():
     response = Response(generate_sse())
     response.headers['Content-Type'] = 'text/event-stream'
@@ -184,7 +186,7 @@ def get_file_type(filename):
     return file_types.get(extension.lower(), 'unknown')
 
 
-@app.route('/upload', methods=['POST'])
+@index_bp.route('/upload', methods=['POST'])
 def upload():
     if request.method == 'POST':
         f = request.files['file']
