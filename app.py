@@ -35,4 +35,4 @@ if __name__ == '__main__':
 
     # Load the config file
     app.config.from_object('config')
-    app.run(debug=True, host="192.168.14.122",port=os.getenv("PORT", default=5000))
+    app.run(debug=True, port=os.getenv("PORT", default=5000))
