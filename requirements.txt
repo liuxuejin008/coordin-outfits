@@ -9,3 +9,4 @@ gunicorn==20.0.4
 itsdangerous
 MarkupSafe
 Werkzeug
+starlette
