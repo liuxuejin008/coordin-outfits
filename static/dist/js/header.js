@@ -21,7 +21,7 @@ auth0.createAuth0Client({
   domain: "dev-b35cc3imumqh8e5w.us.auth0.com",
   clientId: "2ur3dAMCqtRDwBht864h4SkcS30Oaebe",
   authorizationParams: {
-    redirect_uri: window.location.origin + window.location.pathname
+    redirect_uri: window.location.origin + '/main.html'
   }
 }).then(async (auth0Client) => {
   // login
@@ -46,7 +46,7 @@ auth0.createAuth0Client({
     e.preventDefault();
     auth0Client.loginWithRedirect({
       authorizationParams: {
-        redirect_uri: window.location.origin + window.location.pathname
+        redirect_uri: window.location.origin + '/main.html'
       }
     });
   }
