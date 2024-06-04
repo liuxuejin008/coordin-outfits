@@ -87,7 +87,7 @@ def result():
 @index_bp.route('/price.html')
 def price():
     dict = {'phy': 50, 'che': 60, 'maths': 70}
-    return render_template('main.html', result=dict)
+    return render_template('price.html', result=dict)
 
 
 @index_bp.route('/stream1')
