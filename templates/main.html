@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <!-- Favicon icon -->
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon.png">
+  <title>AdminWrap - Easy to Customize Bootstrap 4 Admin Template</title>
+  <!-- Bootstrap Core CSS -->
+  <link href="/assets/node_modules/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/assets/node_modules/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet">
+  <!-- This page CSS -->
+  <!-- chartist CSS -->
+  <link href="/assets/node_modules/morrisjs/morris.css" rel="stylesheet">
+  <!--c3 CSS -->
+  <link href="/assets/node_modules/c3-master/c3.min.css" rel="stylesheet">
+  <!-- Custom CSS -->
+  <link href="/assets/css/style.css" rel="stylesheet">
+  <!-- Dashboard 1 Page CSS -->
+  <link href="/assets/css/pages/dashboard1.css" rel="stylesheet">
+  <!-- You can change the theme colors from here -->
+  <link href="/assets/css/colors/default.css" id="theme" rel="stylesheet">
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+</head>
+
+<body class="fix-header fix-sidebar card-no-border">
+  <!-- ============================================================== -->
+  <!-- Preloader - style you can find in spinners.css -->
+  <!-- ============================================================== -->
+  <div class="preloader">
+    <div class="loader">
+      <div class="loader__figure"></div>
+      <p class="loader__label">Admin Wrap</p>
+    </div>
+  </div>
+  <!-- ============================================================== -->
+  <!-- Main wrapper - style you can find in pages.scss -->
+  <!-- ============================================================== -->
+  <div id="main-wrapper">
+    <!-- ============================================================== -->
+    <!-- Topbar header - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <header class="topbar">
+      <nav class="navbar top-navbar navbar-expand-md navbar-light">
+        <!-- ============================================================== -->
+        <!-- Logo -->
+        <!-- ============================================================== -->
+        <div class="navbar-header">
+          <a class="navbar-brand" href="index.html">
+            <!-- Logo icon --><b>
+              <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
+              <!-- Dark Logo icon -->
+              <img src="/assets/images/logo-icon.png" alt="homepage" class="dark-logo" />
+              <!-- Light Logo icon -->
+              <img src="/assets/images/logo-light-icon.png" alt="homepage" class="light-logo" />
+            </b>
+            <!--End Logo icon -->
+            <!-- Logo text --><span>
+              <!-- dark Logo text -->
+              <img src="/assets/images/logo-text.png" alt="homepage" class="dark-logo" />
+              <!-- Light Logo text -->
+              <img src="/assets/images/logo-light-text.png" class="light-logo" alt="homepage" /></span> </a>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Logo -->
+        <!-- ============================================================== -->
+        <div class="navbar-collapse">
+          <!-- ============================================================== -->
+          <!-- toggle and nav items -->
+          <!-- ============================================================== -->
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item"> <a class="nav-link nav-toggler hidden-md-up waves-effect waves-dark"
+                href="javascript:void(0)"><i class="fa fa-bars"></i></a> </li>
+            <!-- ============================================================== -->
+            <!-- Search -->
+            <!-- ============================================================== -->
+            <li class="nav-item hidden-xs-down search-box"> <a class="nav-link hidden-sm-down waves-effect waves-dark"
+                href="javascript:void(0)"><i class="fa fa-search"></i></a>
+              <form class="app-search">
+                <input type="text" class="form-control" placeholder="Search & enter"> <a class="srh-btn"><i
+                    class="fa fa-times"></i></a>
+              </form>
+            </li>
+          </ul>
+          <!-- ============================================================== -->
+          <!-- User profile and search -->
+          <!-- ============================================================== -->
+          <ul class="navbar-nav my-lg-0">
+            <!-- ============================================================== -->
+            <!-- Profile -->
+            <!-- ============================================================== -->
+            <li class="nav-item dropdown u-pro">
+              <a class="nav-link dropdown-toggle waves-effect waves-dark profile-pic" href="" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false"><img src="assets/images/users/1.jpg" alt="user" class="" />
+                <span class="hidden-md-down">Mark Sanders &nbsp;</span> </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <!-- ============================================================== -->
+    <!-- End Topbar header -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Left Sidebar - style you can find in sidebar.scss  -->
+    <!-- ============================================================== -->
+    <aside class="left-sidebar">
+      <!-- Sidebar scroll-->
+      <div class="scroll-sidebar">
+        <!-- Sidebar navigation-->
+        <nav class="sidebar-nav">
+          <ul id="sidebarnav">
+            <li> <a class="waves-effect waves-dark" href="main.html" aria-expanded="false"><i
+                  class="fa fa-tachometer"></i><span class="hide-menu">Dashboard</span></a>
+            </li>
+            <li> <a class="waves-effect waves-dark" href="pages-profile.html" aria-expanded="false"><i
+                  class="fa fa-user-circle-o"></i><span class="hide-menu">Profile</span></a>
+            </li>
+            <li> <a class="waves-effect waves-dark" href="table-basic.html" aria-expanded="false"><i
+                  class="fa fa-table"></i><span class="hide-menu">Tables</span></a>
+            </li>
+            <li> <a class="waves-effect waves-dark" href="icon-fontawesome.html" aria-expanded="false"><i
+                  class="fa fa-smile-o"></i><span class="hide-menu">Icons</span></a>
+            </li>
+            <li> <a class="waves-effect waves-dark" href="map-google.html" aria-expanded="false"><i
+                  class="fa fa-globe"></i><span class="hide-menu">Map</span></a>
+            </li>
+            <li> <a class="waves-effect waves-dark" href="pages-blank.html" aria-expanded="false"><i
+                  class="fa fa-bookmark-o"></i><span class="hide-menu">Blank</span></a>
+            </li>
+            <li> <a class="waves-effect waves-dark" href="pages-error-404.html" aria-expanded="false"><i
+                  class="fa fa-question-circle"></i><span class="hide-menu">404</span></a>
+            </li>
+          </ul>
+          <div class="text-center m-t-30">
+            <a href="https://wrappixel.com/templates/adminwrap/"
+              class="btn waves-effect waves-light btn-info hidden-md-down"> Upgrade to Pro</a>
+          </div>
+        </nav>
+        <!-- End Sidebar navigation -->
+      </div>
+      <!-- End Sidebar scroll-->
+    </aside>
+    <!-- ============================================================== -->
+    <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Page wrapper  -->
+    <!-- ============================================================== -->
+    <div class="page-wrapper">
+      <!-- ============================================================== -->
+      <!-- Container fluid  -->
+      <!-- ============================================================== -->
+      <div class="container-fluid">
+        <h2>User Registration</h2>
+        <div class="row">
+          <div class="col-md-6 offset-md-3">
+            <form id="form">
+              <div class="form-group">
+                <label for="question">Question</label>
+                <textarea rows="6" class="form-control" id="question" name="question" placeholder="Enter question"></textarea>
+              </div>
+              <!-- <div class="form-group">
+                <label for="gender">Gender</label>
+                <select class="form-control" id="gender">
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                </select>
+              </div> -->
+              <div class="form-group">
+                <div id="avatar-uploader"
+                  style="margin-top: 2px; position: relative; display: flex; justify-content: center; border-radius: 20px; border: 1px rgba(17,24,39,.25) dashed; padding: 2.5rem 1.5rem; max-height: 420px;">
+                  <div style="text-align: center;">
+                    <svg id="avatar-placeholder" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                      fill="currentColor" aria-hidden="true" data-slot="icon" class="mx-auto h-12 w-12 text-gray-300">
+                      <path fill-rule="evenodd"
+                        d="M1.5 6a2.25 2.25 0 0 1 2.25-2.25h16.5A2.25 2.25 0 0 1 22.5 6v12a2.25 2.25 0 0 1-2.25 2.25H3.75A2.25 2.25 0 0 1 1.5 18V6ZM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0 0 21 18v-1.94l-2.69-2.689a1.5 1.5 0 0 0-2.12 0l-.88.879.97.97a.75.75 0 1 1-1.06 1.06l-5.16-5.159a1.5 1.5 0 0 0-2.12 0L3 16.061Zm10.125-7.81a1.125 1.125 0 1 1 2.25 0 1.125 1.125 0 0 1-2.25 0Z"
+                        clip-rule="evenodd"></path>
+                    </svg>
+                    <img style="display: none;max-width: 80%;max-height: 80%; margin:auto;" />
+                    <div id="fileWrapper" class="mt-4 flex items-center justify-center text-sm leading-6 text-gray-600">
+                      <label
+                        class="relative cursor-pointer rounded-md border border-primary px-3 py-1 font-semibold text-primary focus-within:outline-none focus-within:ring-0 focus-within:ring-primatext-primary focus-within:ring-offset-0 hover:text-primary"><span>Upload</span><input
+                          accept="image/*" class="sr-only" type="file" name="file"></label></div>
+                    <p class="block text-xs leading-5 text-gray-600 mt-8">Upload an Image, size up to 5MB.</p>
+                  </div>
+                </div>
+              </div>
+              <input hidden id="fileName" name="fileName" />
+              <div id="progress" class="form-group">
+                <div class="progress">
+                  <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0"
+                    aria-valuemax="100"></div>
+                </div>
+              </div>
+              <button type="submit" class="btn waves-effect waves-light btn-info mx-auto d-block">Submit</button>
+            </form>
+          </div>
+         <div id="text" style="line-height: 2; white-space: pre-line;" class="col-md-6 border py-2 radius">
+
+          </div>
+        </div>
+      </div>
+      <!-- ============================================================== -->
+      <!-- End Container fluid  -->
+      <!-- ============================================================== -->
+      <!-- ============================================================== -->
+      <!-- footer -->
+      <!-- ============================================================== -->
+      <footer class="footer"> © 2018 outfits by outfits-gpt.com </footer>
+      <!-- ============================================================== -->
+      <!-- End footer -->
+      <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Page wrapper  -->
+    <!-- ============================================================== -->
+  </div>
+
+
+  <!-- End Wrapper -->
+  <!-- ============================================================== -->
+  <!-- ============================================================== -->
+  <!-- All Jquery -->
+  <!-- ============================================================== -->
+  <script src="/assets/node_modules/jquery/jquery.min.js"></script>
+  <!-- Bootstrap popper Core JavaScript -->
+  <script src="/assets/node_modules/bootstrap/js/popper.min.js"></script>
+  <script src="/assets/node_modules/bootstrap/js/bootstrap.min.js"></script>
+  <!-- slimscrollbar scrollbar JavaScript -->
+  <script src="/assets/js/perfect-scrollbar.jquery.min.js"></script>
+  <!--Wave Effects -->
+  <script src="/assets/js/waves.js"></script>
+  <!--Menu sidebar -->
+  <script src="/assets/js/sidebarmenu.js"></script>
+  <!--Custom JavaScript -->
+  <script src="/assets/js/custom.min.js"></script>
+  <!-- ============================================================== -->
+  <!-- This page plugins -->
+  <!-- ============================================================== -->
+  <!--morris JavaScript -->
+  <script src="/assets/node_modules/raphael/raphael-min.js"></script>
+  <script src="/assets/node_modules/morrisjs/morris.min.js"></script>
+  <!--c3 JavaScript -->
+  <script src="/assets/node_modules/d3/d3.min.js"></script>
+  <script src="/assets/node_modules/c3-master/c3.min.js"></script>
+  <!-- Chart JS -->
+  <script src="/assets/js/dashboard1.js"></script>
+
+  <script>
+    const uploader = document.getElementById('avatar-uploader')
+    const avatarPlaceholder = document.getElementById('avatar-placeholder')
+    const avatarImage = uploader.querySelector('img')
+    const avatarInput = uploader.querySelector('input[type="file"]')
+    const fileWrapper = uploader.querySelector('#fileWrapper')
+    const progressBar = document.querySelector('.progress-bar');
+    const progress = document.getElementById('progress');
+    const fileNameInput = document.getElementById('fileName');
+
+    fileWrapper.addEventListener('click', function (e) {
+      e.stopPropagation()
+    })
+
+    avatarInput.addEventListener('change', function (e) {
+      e.stopPropagation()
+      const file = this.files[0]
+      const reader = new FileReader()
+      reader.onload = function (e) {
+        avatarPlaceholder.style.display = 'none'
+        avatarImage.style.display = 'block'
+        avatarImage.src = e.target.result
+      }
+      reader.readAsDataURL(file)
+
+      progressBar.style.transition = 'none';
+      progressBar.style.width = 0 + '%';
+
+      const formData = new FormData();
+      formData.append('file', file);
+      const xhr = new XMLHttpRequest();
+      xhr.open('POST', '/upload', true);
+      xhr.upload.addEventListener('progress', function(event) {
+        if (event.lengthComputable) {
+          progressBar.style.transition = 'width .5s linear'
+
+          const progress = Math.round((event.loaded / event.total) * 100);
+          progressBar.style.width = progress + '%';
+        }
+      });
+
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          const res = JSON.parse(xhr.response);
+          fileNameInput.value = res.message.file_name;
+        }
+        if (xhr.readyState === 4 && xhr.status !== 200) {
+          alert('Error uploading file');
+        }
+      };
+      xhr.send(formData);
+    })
+
+    uploader.addEventListener('click', function (e) {
+      avatarInput.click()
+    })
+
+  </script>
+
+  <script>
+
+  </script>
+
+  <script>
+    const form = document.querySelector('#form')
+    const submitBtn = document.querySelector('button[type=submit]')
+    const content = document.querySelector('#text')
+    let preEventSource = null
+
+    form.addEventListener('submit', function (event) {
+      // Close previous EventSource
+      if (preEventSource && preEventSource !== 2) {
+        preEventSource.close();
+      }
+      // Get form data
+      event.preventDefault()
+      content.innerHTML = 'Waiting for response...';
+      let lastContent = ''
+      const formData = new FormData(event.target);
+      const data = {};
+      for (let [key, value] of formData.entries()) {
+        if (key !== 'file') { // Ignore file input
+          data[key] = value;
+        }
+      }
+
+      if (!data.question) {
+        alert('Please enter a question');
+        return;
+      }
+      if (!data.fileName) {
+        alert('Please upload a photo');
+        return;
+      }
+      // Create a new EventSource
+      const eventSource = new EventSource('/stream?' + new URLSearchParams(data));
+      preEventSource = eventSource;
+      // Listen for messages from the server
+      eventSource.addEventListener('message', function (event) {
+        if (event.data === '[DONE]') {
+          eventSource.close();
+          console.log(lastContent)
+          return;
+        }
+
+        lastContent += event.data;
+        content.innerHTML = lastContent;
+      });
+
+    });
+  </script>
+</body>
+
+</html>
