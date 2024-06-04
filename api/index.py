@@ -83,6 +83,13 @@ def result():
     return render_template('main.html', result=dict)
 
 
+
+@index_bp.route('/price.html')
+def result():
+    dict = {'phy': 50, 'che': 60, 'maths': 70}
+    return render_template('main.html', result=dict)
+
+
 @index_bp.route('/stream1')
 def stream1():
     def event_stream():
