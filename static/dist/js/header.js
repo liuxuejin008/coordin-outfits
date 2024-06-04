@@ -18,8 +18,8 @@ window.addEventListener('resize', function () {
 
 
 auth0.createAuth0Client({
-  domain: "dev-7t0ooaglcqz4tfqr.us.auth0.com",
-  clientId: "RY0zAv7O3WYplPe1WKgslwQ8996oN6KK",
+  domain: "dev-b35cc3imumqh8e5w.us.auth0.com",
+  clientId: "2ur3dAMCqtRDwBht864h4SkcS30Oaebe",
   authorizationParams: {
     redirect_uri: window.location.origin + window.location.pathname
   }
