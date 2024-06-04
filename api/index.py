@@ -85,7 +85,7 @@ def result():
 
 
 @index_bp.route('/price.html')
-def result():
+def price():
     dict = {'phy': 50, 'che': 60, 'maths': 70}
     return render_template('main.html', result=dict)
 
