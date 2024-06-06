@@ -28,9 +28,6 @@ client = OpenAI(base_url="https://openrouter.ai/api/v1",
 
 
 
-@index_bp.route('/home')
-def home():
-    return 'Hello, World!'
 
 
 @index_bp.route('/about')
