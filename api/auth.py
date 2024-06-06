@@ -12,7 +12,6 @@ from api import oauth
 
 @auth_bp.route("/login")
 def login():
-    print("====================+++++++++")
     return oauth.auth0.authorize_redirect(
         redirect_uri=url_for("callback", _external=True)
     )
@@ -20,7 +19,6 @@ def login():
 
 @auth_bp.route("/callback", methods=["GET", "POST"])
 def callback():
-    print('==========================================')
     token = oauth.auth0.authorize_access_token()
     session["user"] = token
     return redirect("/home")
