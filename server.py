@@ -15,8 +15,6 @@ if ENV_FILE:
 
 app = Flask(__name__)
 app.secret_key = env.get("APP_SECRET_KEY")
-
-
 oauth = OAuth(app)
 
 oauth.register(
@@ -44,6 +42,7 @@ def home():
 def callback():
     token = oauth.auth0.authorize_access_token()
     session["user"] = token
+    session["userName"] = "tom"
     return redirect("/")
 
 
@@ -70,6 +69,17 @@ def logout():
         )
     )
 
+@app.route('/get_session')
+def get_session():
+    username = session.get('username')
+    if username is None:
+        username="notSessionUserNanme"
+    return 'get session username {}'.format(username)
+
+
+@app.route("/sign_in", methods=["GET", "POST"])
+def sign_in():
+    return render_template('signin.html')
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=env.get("PORT", 3000))
