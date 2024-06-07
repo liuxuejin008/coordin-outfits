@@ -21,7 +21,7 @@ def login():
 def callback():
     token = oauth.auth0.authorize_access_token()
     session["user"] = token
-    return redirect("/home")
+    return redirect("/main.html")
 
 
 @auth_bp.route("/logout")
