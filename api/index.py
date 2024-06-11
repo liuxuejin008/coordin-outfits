@@ -17,8 +17,9 @@ from werkzeug.utils import secure_filename
 
 
 dir = dirname(abspath(__file__))
-
 upload_folder = './images'
+if not os.path.exists(upload_folder):
+    os.makedirs(upload_folder)
 import requests
 from flask import  jsonify, request, render_template, Response
 
