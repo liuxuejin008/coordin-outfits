@@ -12,6 +12,7 @@ from api import oauth
 
 @auth_bp.route("/login")
 def login():
+    print("login----------------------------------------")
     return oauth.auth0.authorize_redirect(
         redirect_uri=url_for("callback", _external=True)
     )
