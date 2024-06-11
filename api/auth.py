@@ -20,6 +20,7 @@ def login():
 
 @auth_bp.route("/callback", methods=["GET", "POST"])
 def callback():
+    print("=======================================callback")
     token = oauth.auth0.authorize_access_token()
     session["user"] = token
     return redirect("/main.html")
