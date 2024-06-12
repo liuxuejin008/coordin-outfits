@@ -1,10 +1,12 @@
+import os
+from sys import prefix
 
 # Initialize the app
 from flask import Flask
 from os import environ as env
 from authlib.integrations.flask_client import OAuth
 from dotenv import find_dotenv, load_dotenv
-
+from flask_sqlalchemy import SQLAlchemy
 
 ENV_FILE = find_dotenv()
 if ENV_FILE:
@@ -21,7 +23,21 @@ app = Flask(__name__,
 app.secret_key = env.get("APP_SECRET_KEY")
 
 oauth = OAuth(app)
-print(env.get("AUTH0_DOMAIN"))
+
+USERNAME = env.get("USERNAME")
+PASSWORD = env.get("PASSWORD")
+HOSTNAME = env.get("HOSTNAME")
+PORT = env.get("DB_PORT")
+DATABASE = env.get("DATABASE")
+
+DB_URI = 'mysql+pymysql://{username}:{pwd}@{host}:{port}/{db}?charset=utf8mb4' \
+    .format(username=USERNAME, pwd=PASSWORD, host=HOSTNAME, port=PORT, db=DATABASE)
+app.config['SQLALCHEMY_DATABASE_URI'] = DB_URI
+#动态追踪修改设置，如未设置只会提示警告，此字段会增加了大量的开销,建议设置为False
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+#若要查看映射的sql语句,需要如下配置，此功能对调试有用，正式环境建议设置为False
+app.config['SQLALCHEMY_ECHO'] = True
+
 oauth.register(
     "auth0",
     client_id=env.get("AUTH0_CLIENT_ID"),
@@ -31,4 +47,6 @@ oauth.register(
     },
     server_metadata_url=f'https://{env.get("AUTH0_DOMAIN")}/.well-known/openid-configuration'
 )
+
+db = SQLAlchemy(app)
 
