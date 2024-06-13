@@ -17,6 +17,7 @@ app.register_blueprint(auth_bp)
 
 @app.route('/')
 def index():
+    print("------------------------index2222222----------------------")
     return render_template('index.html')
 
 
