@@ -53,10 +53,6 @@ class UserServices:
             return user
         return None
 
-
-def get_user(email):
-    return User.query.get(email)
-
-
-def add_user(nickname, email, status, grade, credits):
-    return None
+    @staticmethod
+    def get_user(email):
+        return User.query.get(email)
