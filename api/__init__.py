@@ -41,6 +41,6 @@ oauth.register(
 db = SQLAlchemy(app)
 app.config['upload'] = './upload'
 # Load the views
-app.confi['JSON_AS_ASCII'] = False
+app.config['JSON_AS_ASCII'] = False
 # Load the config file
 app.config.from_object('config')
