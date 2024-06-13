@@ -53,6 +53,3 @@ class UserServices:
             return user
         return None
 
-    @staticmethod
-    def get_user(email):
-        return User.query.get(email)
