@@ -14,6 +14,11 @@ app.register_blueprint(index_bp)
 app.register_blueprint(users_bp)
 app.register_blueprint(auth_bp)
 
+with app.app_context():
+    print("-------------------------创建数据库表----------------------")
+    db.create_all()
+
+
 
 @app.route('/')
 def index():
@@ -23,12 +28,5 @@ def index():
 
 if __name__ == '__main__':
     print("------------------------启动服务器2222222----------------------")
-    with app.app_context():
-        print("-------------------------创建数据库表----------------------")
-        db.create_all()
-    app.config['upload'] = './upload'
-    # Load the views
-    app.confi['JSON_AS_ASCII'] = False
-    # Load the config file
-    app.config.from_object('config')
+
     app.run(debug=True, port=os.getenv("PORT", default=3000))

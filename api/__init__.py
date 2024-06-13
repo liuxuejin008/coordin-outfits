@@ -21,12 +21,6 @@ app.secret_key = env.get("APP_SECRET_KEY")
 
 oauth = OAuth(app)
 
-USERNAME = env.get("USERNAME")
-PASSWORD = env.get("PASSWORD")
-HOSTNAME = env.get("HOSTNAME")
-PORT = env.get("DB_PORT")
-DATABASE = env.get("DATABASE")
-
 DB_URI = env.get("DB_URL")
 app.config['SQLALCHEMY_DATABASE_URI'] = DB_URI
 #动态追踪修改设置，如未设置只会提示警告，此字段会增加了大量的开销,建议设置为False
@@ -45,8 +39,8 @@ oauth.register(
 )
 
 db = SQLAlchemy(app)
-
-
-def get_app():
-    return app
-
+app.config['upload'] = './upload'
+# Load the views
+app.confi['JSON_AS_ASCII'] = False
+# Load the config file
+app.config.from_object('config')
