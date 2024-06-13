@@ -15,14 +15,12 @@ app.register_blueprint(users_bp)
 app.register_blueprint(auth_bp)
 
 with app.app_context():
-    print("-------------------------创建数据库表----------------------")
     db.create_all()
 
 
 
 @app.route('/')
 def index():
-    print("------------------------index2222222----------------------")
     return render_template('index.html')
 
 
