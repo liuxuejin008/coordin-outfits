@@ -17,18 +17,53 @@ def encode_image(image_path):
 
 base64_image = encode_image(IMAGE_PATH)
 
-response = client.chat.completions.create(
-    model="openai/gpt-4o",
-    messages=[
-        {"role": "system", "content": "You are a helpful outfits assistant"},
-        {"role": "user", "content": [
-            {"type": "text", "text": "Based on the picture, can you give some fashion advice??"},
-            {"type": "image_url", "image_url": {
-                "url": f"data:image/jpg;base64,{base64_image}"}
-            }
-        ]}
-    ],
-    temperature=0.0,
-)
-print(response.choices[0].message.content)
+def test():
+    response = client.chat.completions.create(
+        model="openai/gpt-4o",
+        messages=[
+            {"role": "system", "content": "You are a helpful outfits assistant"},
+            {"role": "user", "content": [
+                {"type": "text", "text": "Based on the picture, can you give some fashion advice??"},
+                {"type": "image_url", "image_url": {
+                    "url": f"data:image/jpg;base64,{base64_image}"}
+                 }
+            ]}
+        ],
+        temperature=0.0,
+    )
+    print(response)
+    print(response.choices[0].message.content)
 
+
+def gpt4vstream():
+    res = client.chat.completions.create(
+        model="openai/gpt-4o",
+        messages=[
+            {"role": "system", "content": "You are a helpful outfits assistant"},
+            {"role": "user", "content": [
+                {"type": "text", "text": "Based on the picture, can you give some fashion advice?"},
+                {"type": "image_url", "image_url": {
+                    "url": f"data:image/jpg;base64,{base64_image}"}
+                 }
+            ]}
+        ],
+        temperature=0.8,
+        # max_tokens=1000,
+        stream=True
+    )
+
+    aaa = ""
+    for trunk in res:
+        json_data = trunk.to_dict()
+        if json_data.get('usage') is not None:
+            print(json_data['usage']['total_tokens'])
+        if trunk.choices[0].finish_reason is not None:
+            print('111111111111111')
+            data = '[DONE]'
+        else:
+            print('22222222222222')
+            data = trunk.choices[0].delta.content
+            print(data)
+        aaa = aaa + data
+
+gpt4vstream()

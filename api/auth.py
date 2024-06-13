@@ -24,6 +24,7 @@ def callback():
     session["user"] = token
     user_info = token['userinfo']
     email = user_info['email']
+    session["email"] = email
     nickname = user_info['nickname']
     user = UserServices.get_user(email)
     if user is None:

@@ -43,9 +43,19 @@ class UserServices:
             return user
         return None
 
+    @staticmethod
+    def update_credits(user_id, token):
+        user = UserServices.get_user_by_id(user_id)
+        if user:
+            user.credits = user.credits - token
+            user.last_update_time = int(time.time())  # 更新更新时间
+            db.session.commit()
+            return user
+        return None
+
 
 def get_user(email):
-    return None
+    return User.query.get(email)
 
 
 def add_user(nickname, email, status, grade, credits):

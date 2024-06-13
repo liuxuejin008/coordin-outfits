@@ -4,17 +4,15 @@ import os
 import traceback
 import uuid
 from os.path import dirname, abspath, join
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, session
+
+from services import UserService
+from services.UserService import UserServices
+
 index_bp = Blueprint('index', __name__)
 
 import openai
 from openai import OpenAI
-from sqlalchemy import create_engine, Column, Integer, String
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
-from starlette.responses import StreamingResponse
-from werkzeug.utils import secure_filename
-
 
 dir = dirname(abspath(__file__))
 upload_folder = './images'
@@ -26,9 +24,6 @@ from flask import  jsonify, request, render_template, Response
 
 client = OpenAI(base_url="https://openrouter.ai/api/v1",
                 api_key="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")
-
-
-
 
 
 @index_bp.route('/about')
@@ -112,15 +107,20 @@ def encode_image(image_path):
 
 @index_bp.route('/stream', methods=['GET'])
 def stream():
-
     question = request.args.get("question")
     file_name = request.args.get("fileName")
     print(f"question={question}")
     print(f"file_name={file_name}")
+    email = session["email"]
+    user = UserServices.get_user(email)
+    if user.credits < 0:
+        response2 = Response(generate_sse())
+        response2.headers['Content-Type'] = 'text/event-stream'
+        return response2
+
     def event_stream():
         file_path = os.path.join(upload_folder, file_name)
         base64_image = encode_image(file_path)
-        print(len(base64_image))
         res = client.chat.completions.create(
             model="openai/gpt-4o",
             messages=[
@@ -139,23 +139,24 @@ def stream():
 
         aaa = ""
         for trunk in res:
+            json_data = trunk.to_dict()
+            if json_data.get('usage') is not None:
+                total_tokens = json_data['usage']['total_tokens']
+                if user:
+                    UserServices.update_credits(user.id,int(total_tokens))
             if trunk.choices[0].finish_reason is not None:
-                print('111111111111111')
                 data = '[DONE]'
             else:
-                print('22222222222222')
                 data = trunk.choices[0].delta.content
-                print(data)
             aaa = aaa + data
-            yield "data: %s\n\n" % data.replace("\n", "<br>")
-        print(aaa)
+            yield "data: %s\n\n" % data.replace("\n", "<br>")#这一句很重要，不要删除
     response1 = Response(event_stream())
     response1.headers['Content-Type'] = 'text/event-stream'
     return response1
 
 
 def generate_sse():
-    data = "Hello, SSE!"
+    data = "请充值"
     event = "message"
 
     yield "data: {}\n".format(data)

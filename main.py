@@ -26,5 +26,4 @@ def index():
 
 if __name__ == '__main__':
     print("------------------------启动服务器2222222----------------------")
-
     app.run(debug=True, port=os.getenv("PORT", default=3000))
