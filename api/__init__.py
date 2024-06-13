@@ -1,6 +1,3 @@
-import os
-from sys import prefix
-
 # Initialize the app
 from flask import Flask
 from os import environ as env

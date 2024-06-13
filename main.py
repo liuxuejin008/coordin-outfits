@@ -1,4 +1,3 @@
-
 from flask import  render_template
 import os
 
@@ -23,6 +22,7 @@ def index():
 
 if __name__ == '__main__':
     with app.app_context():
+        print("-------------------------创建数据库表----------------------")
         db.create_all()
     app.config['upload'] = './upload'
     # Load the views
