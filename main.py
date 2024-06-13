@@ -28,7 +28,7 @@ if __name__ == '__main__':
         db.create_all()
     app.config['upload'] = './upload'
     # Load the views
-    app.config['JSON_AS_ASCII'] = False
+    app.confi['JSON_AS_ASCII'] = False
     # Load the config file
     app.config.from_object('config')
     app.run(debug=True, port=os.getenv("PORT", default=3000))
