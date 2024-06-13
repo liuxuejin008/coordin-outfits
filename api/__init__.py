@@ -46,3 +46,7 @@ oauth.register(
 
 db = SQLAlchemy(app)
 
+
+def get_app():
+    return app
+
