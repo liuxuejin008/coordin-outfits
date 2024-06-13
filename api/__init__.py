@@ -30,8 +30,7 @@ HOSTNAME = env.get("HOSTNAME")
 PORT = env.get("DB_PORT")
 DATABASE = env.get("DATABASE")
 
-DB_URI = 'mysql+pymysql://{username}:{pwd}@{host}:{port}/{db}?charset=utf8mb4' \
-    .format(username=USERNAME, pwd=PASSWORD, host=HOSTNAME, port=PORT, db=DATABASE)
+DB_URI = env.get("DB_URL")
 app.config['SQLALCHEMY_DATABASE_URI'] = DB_URI
 #动态追踪修改设置，如未设置只会提示警告，此字段会增加了大量的开销,建议设置为False
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
