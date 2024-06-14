@@ -3,10 +3,9 @@ import json
 import os
 import traceback
 import uuid
-from os.path import dirname, abspath, join
-from flask import Blueprint, render_template, session
+from os.path import dirname, abspath
+from flask import Blueprint, session
 
-from services import UserService
 from services.UserService import UserServices
 
 index_bp = Blueprint('index', __name__)
