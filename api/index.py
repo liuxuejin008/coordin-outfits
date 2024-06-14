@@ -8,6 +8,7 @@ from os.path import dirname, abspath
 from flask import Blueprint, session
 
 from api import db, app
+from api.models import User
 from services.UserService import UserServices
 
 index_bp = Blueprint('index', __name__)
@@ -145,12 +146,11 @@ def stream():
             json_data = trunk.to_dict()
             if json_data.get('usage') is not None:
                 total_tokens = json_data['usage']['total_tokens']
+                user = User.query.get(user.id)
                 if user:
                     user.credits = user.credits - total_tokens
                     user.last_update_time = int(time.time())  # 更新更新时间
-                    with app.app_context():
-                        print("--------db-------------")
-                        db.session.commit()
+                    db.session.commit()
             if trunk.choices[0].finish_reason is not None:
                 data = '[DONE]'
             else:
