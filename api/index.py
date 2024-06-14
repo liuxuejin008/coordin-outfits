@@ -112,8 +112,9 @@ def stream():
     print(f"file_name={file_name}")
     email = session["email"]
 
-    print(f"从session中的email==========={email}")
+    print(f"-------------从session中的email==========={email}")
     user = UserServices.get_user(email)
+    print(json.dumps(user))
     if user.credits < 0:
         response2 = Response(generate_sse())
         response2.headers['Content-Type'] = 'text/event-stream'
