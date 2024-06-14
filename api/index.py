@@ -7,7 +7,7 @@ import uuid
 from os.path import dirname, abspath
 from flask import Blueprint, session
 
-from api import db
+from api import db, app
 from services.UserService import UserServices
 
 index_bp = Blueprint('index', __name__)
@@ -148,7 +148,8 @@ def stream():
                 if user:
                     user.credits = user.credits - total_tokens
                     user.last_update_time = int(time.time())  # 更新更新时间
-                    db.session.commit()
+                    with app.app_context():
+                         db.session.commit()
             if trunk.choices[0].finish_reason is not None:
                 data = '[DONE]'
             else:
