@@ -13,8 +13,8 @@ auth_bp = Blueprint('auth', __name__)
 def login():
 
     return oauth.auth0.authorize_redirect(
-        #redirect_uri=url_for("auth.callback", _scheme='https',_external=True)
-        redirect_uri = url_for("auth.callback", _scheme='http', _external=True)
+        redirect_uri=url_for("auth.callback", _scheme='https',_external=True)
+        #redirect_uri = url_for("auth.callback", _scheme='http', _external=True)
     )
 
 
