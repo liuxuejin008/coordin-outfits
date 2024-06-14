@@ -1,15 +1,10 @@
 from flask import  render_template
 import os
 
-
-
-from api import  create_app
-
+from api import get_app
 
 print('-----------------------------------init2----------------------------')
-app = create_app()
-
-
+app = get_app()
 
 @app.route('/')
 def index():
