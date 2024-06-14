@@ -1,19 +1,13 @@
 from flask import  render_template
 import os
 
-from api.auth import auth_bp
-from api.index import index_bp
-from api.users import users_bp
+
 
 from api import  create_app
 
 
 print('-----------------------------------init2----------------------------')
 app = create_app()
-# 注册蓝本
-app.register_blueprint(index_bp)
-app.register_blueprint(users_bp)
-app.register_blueprint(auth_bp)
 
 
 

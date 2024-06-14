@@ -49,6 +49,8 @@ def create_app():
     app.register_blueprint(users_bp)
     app.register_blueprint(auth_bp)
     db.init_app(app=app)
-    db.create_all()
+    with app.app_context():
+        db.create_all(app=app)
     return app
+
 
