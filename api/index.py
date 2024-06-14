@@ -1,11 +1,13 @@
 import base64
 import json
 import os
+import time
 import traceback
 import uuid
 from os.path import dirname, abspath
 from flask import Blueprint, session
 
+from api import db
 from services.UserService import UserServices
 
 index_bp = Blueprint('index', __name__)
@@ -144,7 +146,9 @@ def stream():
             if json_data.get('usage') is not None:
                 total_tokens = json_data['usage']['total_tokens']
                 if user:
-                    UserServices.update_credits(user.id,int(total_tokens))
+                    user.credits = user.credits - total_tokens
+                    user.last_update_time = int(time.time())  # 更新更新时间
+                    db.session.commit()
             if trunk.choices[0].finish_reason is not None:
                 data = '[DONE]'
             else:
