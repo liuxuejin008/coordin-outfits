@@ -27,7 +27,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = DB_URI
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 # 若要查看映射的sql语句,需要如下配置，此功能对调试有用，正式环境建议设置为False
 app.config['SQLALCHEMY_ECHO'] = True
-
+db = SQLAlchemy(app)
 oauth.register(
     "auth0",
     client_id=env.get("AUTH0_CLIENT_ID"),
@@ -38,7 +38,7 @@ oauth.register(
     server_metadata_url=f'https://{env.get("AUTH0_DOMAIN")}/.well-known/openid-configuration'
 )
 
-db = SQLAlchemy(app)
+
 
 
 def get_app():

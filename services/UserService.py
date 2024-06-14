@@ -28,8 +28,8 @@ class UserServices:
         return new_user
 
     @staticmethod
-    def get_user_by_id(user_id):
-        return User.query.get(user_id)
+    def get_user_by_id(id):
+        return User.query.get(id)
 
     @staticmethod
     def update_user(user_id, **kwargs):
@@ -44,8 +44,8 @@ class UserServices:
         return None
 
     @staticmethod
-    def update_credits(user_id, token):
-        user = UserServices.get_user_by_id(user_id)
+    def update_credits(id, token):
+        user = User.query.filter_by(id=id).first()
         if user:
             user.credits = user.credits - token
             user.last_update_time = int(time.time())  # 更新更新时间
