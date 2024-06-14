@@ -5,6 +5,9 @@ from authlib.integrations.flask_client import OAuth
 from dotenv import find_dotenv, load_dotenv
 from flask_sqlalchemy import SQLAlchemy
 
+from api.auth import auth_bp
+from api.index import index_bp
+from api.users import users_bp
 
 
 def create_app():
@@ -40,6 +43,11 @@ def create_app():
         },
         server_metadata_url=f'https://{env.get("AUTH0_DOMAIN")}/.well-known/openid-configuration'
     )
+
+    # 注册蓝本
+    app.register_blueprint(index_bp)
+    app.register_blueprint(users_bp)
+    app.register_blueprint(auth_bp)
     db.init_app(app=app)
     db.create_all()
     return app
