@@ -1,5 +1,4 @@
 import base64
-import json
 import os
 import time
 import traceback
@@ -7,7 +6,7 @@ import uuid
 from os.path import dirname, abspath
 from flask import Blueprint, session
 
-from api import db, app
+from api import app
 from api.models import User
 from services.UserService import UserServices
 
@@ -20,11 +19,15 @@ upload_folder = './images'
 if not os.path.exists(upload_folder):
     os.makedirs(upload_folder)
 import requests
-from flask import  jsonify, request, render_template, Response
-
+from flask import jsonify, request, render_template, Response
 
 client = OpenAI(base_url="https://openrouter.ai/api/v1",
                 api_key="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")
+
+
+@index_bp.route('/')
+def index():
+    return render_template('index.html')
 
 
 @index_bp.route('/about')
@@ -77,7 +80,6 @@ def result():
     return render_template('main.html', result=dict)
 
 
-
 @index_bp.route('/price.html')
 def price():
     dict = {'phy': 50, 'che': 60, 'maths': 70}
@@ -93,8 +95,6 @@ def stream1():
     return Response(event_stream(), mimetype="text/event-stream")
 
 
-
-
 @index_bp.route('/sse.html', methods=['GET'])
 def sse():
     return render_template('sse.html', result=dict)
@@ -105,7 +105,6 @@ def encode_image(image_path):
         return base64.b64encode(image_file.read()).decode("utf-8")
 
 
-
 @index_bp.route('/stream', methods=['GET'])
 def stream():
     question = request.args.get("question")
@@ -113,10 +112,8 @@ def stream():
     print(f"question={question}")
     print(f"file_name={file_name}")
     email = session["email"]
-    print(f'dir======={dir}')
-    print(f"-------------从session中的email==========={email}")
-    user = UserServices.get_user(email)
-    print(f"-------------从session中的email===========")
+    user = User.query.filter_by(email=email).first()
+
     if user.credits < 0:
         response2 = Response(generate_sse())
         response2.headers['Content-Type'] = 'text/event-stream'
@@ -146,17 +143,16 @@ def stream():
             json_data = trunk.to_dict()
             if json_data.get('usage') is not None:
                 total_tokens = json_data['usage']['total_tokens']
-                user = User.query.get(user.id)
-                if user:
-                    user.credits = user.credits - total_tokens
-                    user.last_update_time = int(time.time())  # 更新更新时间
-                    db.session.commit()
+                #很久都报错没有上下文，原来在内部函数，丢失了上下文
+                with app.app_context():
+                    UserServices.update_credits(user.id, total_tokens)
             if trunk.choices[0].finish_reason is not None:
                 data = '[DONE]'
             else:
                 data = trunk.choices[0].delta.content
             aaa = aaa + data
-            yield "data: %s\n\n" % data.replace("\n", "<br>")#这一句很重要，不要删除
+            yield "data: %s\n\n" % data.replace("\n", "<br>")  # 这一句很重要，不要删除
+
     response1 = Response(event_stream())
     response1.headers['Content-Type'] = 'text/event-stream'
     return response1
@@ -205,11 +201,10 @@ def upload():
         f = request.files['file']
         uuid_filename = str(uuid.uuid4())
         uuid_filename_no_dashes = uuid_filename.replace("-", "")
-        file_name = uuid_filename_no_dashes+get_file_type(f.filename)
+        file_name = uuid_filename_no_dashes + get_file_type(f.filename)
         print(f"file_name={file_name}")
         file_path = os.path.join(upload_folder, file_name)
         print(f"file_path={file_path}")
         f.save(file_path)
-        return jsonify({"message": {"file_name":file_name}, "rcode": 0})
+        return jsonify({"message": {"file_name": file_name}, "rcode": 0})
     return jsonify({"message": "Get is not allowed", "rcode": 1})
-

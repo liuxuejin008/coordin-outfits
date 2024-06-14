@@ -4,17 +4,17 @@ from urllib.parse import quote_plus, urlencode
 from os import environ as env
 from flask import  redirect, render_template, session, url_for, Blueprint
 
+from api import oauth
 from services.UserService import UserServices
 
 auth_bp = Blueprint('auth', __name__)
 
-
-from api import oauth
-
 @auth_bp.route("/login")
 def login():
+
     return oauth.auth0.authorize_redirect(
-        redirect_uri=url_for("auth.callback", _scheme='https',_external=True)
+        #redirect_uri=url_for("auth.callback", _scheme='https',_external=True)
+        redirect_uri = url_for("auth.callback", _scheme='http', _external=True)
     )
 
 

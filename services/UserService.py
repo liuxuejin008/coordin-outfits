@@ -1,6 +1,6 @@
 import time
 
-from api import db
+from api.ext import db
 from api.models import User
 
 
@@ -28,8 +28,8 @@ class UserServices:
         return new_user
 
     @staticmethod
-    def get_user_by_id(id):
-        return User.query.get(id)
+    def get_user_by_id(user_id):
+        return User.query.get(user_id)
 
     @staticmethod
     def update_user(user_id, **kwargs):
@@ -44,8 +44,8 @@ class UserServices:
         return None
 
     @staticmethod
-    def update_credits(id, token):
-        user = User.query.filter_by(id=id).first()
+    def update_credits(user_id, token):
+        user = UserServices.get_user_by_id(user_id)
         if user:
             user.credits = user.credits - token
             user.last_update_time = int(time.time())  # 更新更新时间
