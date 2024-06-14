@@ -113,7 +113,7 @@ def stream():
 
     print(f"-------------从session中的email==========={email}")
     user = UserServices.get_user(email)
-    print(json.dumps(user))
+    print(f"-------------从session中的email===========")
     if user.credits < 0:
         response2 = Response(generate_sse())
         response2.headers['Content-Type'] = 'text/event-stream'
