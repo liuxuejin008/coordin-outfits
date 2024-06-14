@@ -149,7 +149,8 @@ def stream():
                     user.credits = user.credits - total_tokens
                     user.last_update_time = int(time.time())  # 更新更新时间
                     with app.app_context():
-                         db.session.commit()
+                        print("--------db-------------")
+                        db.session.commit()
             if trunk.choices[0].finish_reason is not None:
                 data = '[DONE]'
             else:
