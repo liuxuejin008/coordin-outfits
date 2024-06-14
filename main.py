@@ -5,19 +5,15 @@ from api.auth import auth_bp
 from api.index import index_bp
 from api.users import users_bp
 
-from api import  get_app
-from api import db
+from api import  create_app
 
 
 print('-----------------------------------init2----------------------------')
-app = get_app()
+app = create_app()
 # 注册蓝本
 app.register_blueprint(index_bp)
 app.register_blueprint(users_bp)
 app.register_blueprint(auth_bp)
-
-with app.app_context():
-    db.create_all()
 
 
 
