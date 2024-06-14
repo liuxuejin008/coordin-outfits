@@ -10,7 +10,6 @@ from services.UserService import UserServices
 
 index_bp = Blueprint('index', __name__)
 
-import openai
 from openai import OpenAI
 
 dir = dirname(abspath(__file__))
